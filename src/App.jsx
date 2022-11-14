@@ -7,7 +7,7 @@ import customTheme from "./themes";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-function App() {
+const App = () => {
   return (
     <ChakraProvider theme={customTheme}>
       <Header />
@@ -15,6 +15,6 @@ function App() {
       <Footer />
     </ChakraProvider>
   );
-}
+};
 
 export default App;

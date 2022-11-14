@@ -2,7 +2,7 @@ import { Flex, Stack, Center, Heading, Text } from "@chakra-ui/react";
 
 import logo from "../assets/ti-pay-logo.svg";
 
-export default function Header() {
+const Header = () => {
   return (
     <header>
       <Flex bg="orange.400" justify="center" pt={5} pb={3}>
@@ -22,4 +22,6 @@ export default function Header() {
       </Flex>
     </header>
   );
-}
+};
+
+export default Header;
