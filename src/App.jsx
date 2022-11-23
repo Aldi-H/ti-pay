@@ -5,14 +5,14 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { Routes } from "react-router-dom";
 import customTheme from "./themes";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Hero from "./components/Hero";
 
 const App = () => {
   return (
     <ChakraProvider theme={customTheme}>
       <Header />
+      <Hero />
       <Routes></Routes>
-      <Footer />
     </ChakraProvider>
   );
 };
