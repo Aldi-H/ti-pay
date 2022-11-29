@@ -1,6 +1,12 @@
 import { Box, Grid, GridItem, Heading, Select } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import backend from "../api/backend";
+import Hero from "../components/Hero";
 
 const LandingPage = () => {
+  const [transaction, setTransaction] = useState(null);
+  const { transactionId } = useParams();
   const bankList = [
     { id: 1, name: "BNI" },
     { id: 2, name: "BRI" },
@@ -20,8 +26,24 @@ const LandingPage = () => {
     { id: 1, name: "Agen BRILink" },
   ];
 
+  const getTransaction = async (transactionId) => {
+    try {
+      const res = await backend.get(`/transaction/${transactionId}`);
+      setTransaction(res.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getTransaction(transactionId);
+  }, [])
+  
+
   return (
-    <Box p={4}>
+    <>
+      <Hero transaction={transaction} />
+      <Box p={4}>
       <Heading p={4} as="h2" size="md">
         Choose type of payment
       </Heading>
@@ -50,6 +72,7 @@ const LandingPage = () => {
         </GridItem>
       </Grid>
     </Box>
+    </>
   );
 };
 

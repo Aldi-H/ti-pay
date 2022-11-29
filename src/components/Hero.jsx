@@ -12,7 +12,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-const Hero = () => {
+const Hero = ({ transaction }) => {
   return (
     <Center>
       <Box p={8} w="5xl">
@@ -31,9 +31,9 @@ const Hero = () => {
           </Heading>
           <Box p={3}>
             <Text fontWeight="bold">
-              Vendor Name : {console.log("FROM API")}
+              Vendor Name : {transaction && transaction.vendorName}
             </Text>
-            <Text fontWeight="bold">Amount : {console.log("FROM API")}</Text>
+            <Text fontWeight="bold">Amount : {transaction && transaction.total}</Text>
           </Box>
         </Box>
       </Box>
