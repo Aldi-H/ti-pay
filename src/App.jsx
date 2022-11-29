@@ -12,9 +12,9 @@ const App = () => {
   return (
     <ChakraProvider theme={customTheme}>
       <Header />
-      <Hero />
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/:transactionId" element={<LandingPage />} />
       </Routes>
     </ChakraProvider>
   );
