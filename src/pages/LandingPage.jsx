@@ -23,7 +23,7 @@ const LandingPage = () => {
   const cashList = [
     { id: 1, name: "Alfamart/Alfamidi" },
     { id: 2, name: "Indomaret" },
-    { id: 1, name: "Agen BRILink" },
+    { id: 3, name: "Agen BRILink" },
   ];
 
   const getTransaction = async (transactionId) => {
@@ -33,45 +33,44 @@ const LandingPage = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     getTransaction(transactionId);
-  }, [])
-  
+  }, []);
 
   return (
     <>
       <Hero transaction={transaction} />
       <Box p={4}>
-      <Heading p={4} as="h2" size="md">
-        Choose type of payment
-      </Heading>
+        <Heading p={4} as="h2" size="md">
+          Choose type of payment
+        </Heading>
 
-      <Grid p={4} gridTemplateColumns="repeat(3, 1fr)" gap={4}>
-        <GridItem>
-          <Select placeholder="Bank Transfer">
-            {bankList.map((bank) => (
-              <option key={bank.id}>{bank.name}</option>
-            ))}
-          </Select>
-        </GridItem>
-        <GridItem>
-          <Select placeholder="Credit/Debit Card">
-            {cardList.map((card) => (
-              <option key={card.id}>{card.name}</option>
-            ))}
-          </Select>
-        </GridItem>
-        <GridItem>
-          <Select placeholder="Cash">
-            {cashList.map((cash) => (
-              <option key={cash.id}>{cash.name}</option>
-            ))}
-          </Select>
-        </GridItem>
-      </Grid>
-    </Box>
+        <Grid p={4} gridTemplateColumns="repeat(3, 1fr)" gap={4}>
+          <GridItem>
+            <Select placeholder="Bank Transfer">
+              {bankList.map((bank) => (
+                <option key={bank.id}>{bank.name}</option>
+              ))}
+            </Select>
+          </GridItem>
+          <GridItem>
+            <Select placeholder="Credit/Debit Card">
+              {cardList.map((card) => (
+                <option key={card.id}>{card.name}</option>
+              ))}
+            </Select>
+          </GridItem>
+          <GridItem>
+            <Select placeholder="Cash">
+              {cashList.map((cash) => (
+                <option key={cash.id}>{cash.name}</option>
+              ))}
+            </Select>
+          </GridItem>
+        </Grid>
+      </Box>
     </>
   );
 };
