@@ -33,7 +33,9 @@ const Hero = ({ transaction }) => {
             <Text fontWeight="bold">
               Vendor Name : {transaction && transaction.vendorName}
             </Text>
-            <Text fontWeight="bold">Amount : {transaction && transaction.total}</Text>
+            <Text fontWeight="bold">
+              Amount : {transaction && transaction.total}
+            </Text>
           </Box>
         </Box>
       </Box>

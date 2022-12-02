@@ -7,6 +7,7 @@ import customTheme from "./themes";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import LandingPage from "./pages/LandingPage";
+import BankTransferLayout from "./components/BankTransferLayout";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/:transactionId" element={<LandingPage />} />
+        <Route path="/bankTransfer" element={<BankTransferLayout />} />
       </Routes>
     </ChakraProvider>
   );
