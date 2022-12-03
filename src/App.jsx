@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import LandingPage from "./pages/LandingPage";
 import BankTransferLayout from "./components/BankTransferLayout";
+import CreditTransferLayout from "./components/CreditTransferLayout";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/:transactionId" element={<LandingPage />} />
         <Route path="/bankTransfer" element={<BankTransferLayout />} />
+        <Route path="/creditTransfer" element={<CreditTransferLayout />} />
       </Routes>
     </ChakraProvider>
   );
