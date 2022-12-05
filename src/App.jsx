@@ -10,6 +10,7 @@ import LandingPage from "./pages/LandingPage";
 import BankTransferLayout from "./components/BankTransferLayout";
 import CreditTransferLayout from "./components/CreditTransferLayout";
 import CashTransferLayout from "./components/CashTransferLayout";
+import ModalLayout from "./components/ModalLayout";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/bankTransfer" element={<BankTransferLayout />} />
         <Route path="/creditTransfer" element={<CreditTransferLayout />} />
         <Route path="/cashTransfer" element={<CashTransferLayout />} />
+        <Route path="/modal" element={<ModalLayout />} />
       </Routes>
     </ChakraProvider>
   );
