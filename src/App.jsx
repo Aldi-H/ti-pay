@@ -17,11 +17,21 @@ const App = () => {
     <ChakraProvider theme={customTheme}>
       <Header />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
         <Route path="/:transactionId" element={<LandingPage />} />
-        <Route path="/bankTransfer" element={<BankTransferLayout />} />
-        <Route path="/creditTransfer" element={<CreditTransferLayout />} />
-        <Route path="/cashTransfer" element={<CashTransferLayout />} />
+        {
+          <Route
+            path="/:transactionId/bank/:bankName"
+            element={<BankTransferLayout />}
+          />
+        }
+        <Route
+          path="/:transactionId/card/:cardName"
+          element={<CreditTransferLayout />}
+        />
+        <Route
+          path="/:transactionId/cash/:cashName"
+          element={<CashTransferLayout />}
+        />
         <Route path="/modal" element={<ModalLayout />} />
       </Routes>
     </ChakraProvider>
