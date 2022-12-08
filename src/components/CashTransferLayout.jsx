@@ -12,12 +12,31 @@ import {
   OrderedList,
   ListItem,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { MdContentCopy, MdOutlineArrowBack } from "react-icons/md";
+import { MdOutlineArrowBack } from "react-icons/md";
+import { useParams } from "react-router-dom";
+import backend from "../api/backend";
 
 const CashTransferLayout = () => {
-  const [show, setShow] = useState();
+  const [transaction, setTransaction] = useState(null);
+  const { transactionId, cashName } = useParams();
+
+  const cashTransaction = async () => {
+    try {
+      const res = await backend.get(
+        `transaction/${transactionId}/${cashName.toLowerCase()}`,
+      );
+      setTransaction(res.data.results);
+      console.log(res.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    cashTransaction();
+  }, []);
 
   return (
     <>
@@ -47,7 +66,9 @@ const CashTransferLayout = () => {
               <Text as="b" fontSize="lg">
                 Code
               </Text>
-              <Text fontSize="lg">123 4567 8901 2345</Text>
+              <Text fontSize="lg">
+                {transaction && transaction.virtualAccount}
+              </Text>
             </Box>
 
             <Box p={4}>
@@ -55,7 +76,7 @@ const CashTransferLayout = () => {
                 <Text as="b" fontSize="lg">
                   Total payment
                 </Text>
-                <Text fontSize="lg">Rp 100.000,00</Text>
+                <Text fontSize="lg">Rp {transaction && transaction.total}</Text>
               </HStack>
             </Box>
 
@@ -64,7 +85,7 @@ const CashTransferLayout = () => {
                 Instruction
               </Text>
               <OrderedList>
-                <ListItem>Visit the nearest Alfamart</ListItem>
+                <ListItem>Visit the nearest {cashName}</ListItem>
                 <ListItem>
                   Specify the payment code and make a payment according to the
                   total payment

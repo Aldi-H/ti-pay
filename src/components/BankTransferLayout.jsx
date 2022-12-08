@@ -11,10 +11,33 @@ import {
   VStack,
   Icon,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 
+import backend from "../api/backend";
 import { MdContentCopy, MdOutlineArrowBack } from "react-icons/md";
+import { useParams } from "react-router-dom";
 
 const BankTransferLayout = () => {
+  const [transaction, setTransaction] = useState(null);
+  const { transactionId, bankName } = useParams();
+
+  const bankTransaction = async () => {
+    try {
+      const res = await backend.get(
+        `transaction/${transactionId}/${bankName.toLowerCase()}`,
+      );
+      setTransaction(res.data.results);
+      console.log(res.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    bankTransaction();
+    console.log(bankTransaction());
+  }, []);
+
   return (
     <>
       <Center>
@@ -38,7 +61,7 @@ const BankTransferLayout = () => {
                 alt="Bank Logo name"
               />
               <Heading as="h2" size="md">
-                Bank Name
+                {bankName}
               </Heading>
             </Stack>
 
@@ -47,7 +70,9 @@ const BankTransferLayout = () => {
                 Account Number
               </Text>
               <HStack spacing="16px">
-                <Text fontSize="lg">123 4567 8901 2345</Text>
+                <Text fontSize="lg">
+                  {transaction && transaction.virtualAccount}
+                </Text>
                 <Button
                   leftIcon={<MdContentCopy />}
                   size="sm"
@@ -62,7 +87,7 @@ const BankTransferLayout = () => {
               <Text as="b" fontSize="lg">
                 Total payment
               </Text>
-              <Text fontSize="lg">Rp 100.000,00</Text>
+              <Text fontSize="lg">Rp {transaction.total}</Text>
             </Box>
           </Box>
 

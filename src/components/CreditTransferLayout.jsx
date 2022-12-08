@@ -15,10 +15,31 @@ import {
   Grid,
   GridItem,
 } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+import backend from "../api/backend";
 
 import { MdOutlineArrowBack, MdOutlineCreditCard } from "react-icons/md";
+import { useParams } from "react-router-dom";
 
 const CreditTransferLayout = () => {
+  const [transaction, setTransaction] = useState(null);
+  const { transactionId, cardName } = useParams();
+
+  const cardTransaction = async () => {
+    try {
+      const res = await backend.get(`transaction/${transactionId}/${cardName}`);
+      setTransaction(res.data.results);
+      console.log(res.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    cardTransaction();
+    console.log(cardTransaction());
+  }, []);
+
   return (
     <>
       <Center>
