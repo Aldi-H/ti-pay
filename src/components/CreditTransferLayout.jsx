@@ -14,15 +14,23 @@ import {
   FormLabel,
   Grid,
   GridItem,
+  ModalOverlay,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import backend from "../api/backend";
 
 import { MdOutlineArrowBack, MdOutlineCreditCard } from "react-icons/md";
 import { useParams } from "react-router-dom";
+import ModalLayout from "./ModalLayout";
 
 const CreditTransferLayout = () => {
+  const OverlayModal = () => (
+    <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
+  );
   const [transaction, setTransaction] = useState(null);
+  const [overlay, setOverlay] = useState(<OverlayModal />);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { transactionId, cardName } = useParams();
 
   const cardTransaction = async () => {
@@ -107,11 +115,27 @@ const CreditTransferLayout = () => {
               </form>
             </Box>
           </Box>
-          <Button colorScheme="green" mt={6} float="right">
+          <Button
+            onClick={() => {
+              setOverlay(<OverlayModal />);
+              onOpen();
+            }}
+            colorScheme="green"
+            mt={6}
+            float="right"
+          >
             Confirm Payment
           </Button>
         </Box>
       </Center>
+      <ModalLayout
+        isOpenModal={isOpen}
+        onCloseModal={onClose}
+        overlay={overlay}
+        bankName={cardName}
+        transactionId={transaction && transaction.transactionId}
+        transactionTotal={transaction && transaction.total}
+      />
     </>
   );
 };

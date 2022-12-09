@@ -8,17 +8,25 @@ import {
   Text,
   useColorModeValue,
   HStack,
-  VStack,
   Icon,
+  useDisclosure,
+  ModalOverlay,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 import backend from "../api/backend";
 import { MdContentCopy, MdOutlineArrowBack } from "react-icons/md";
 import { useParams } from "react-router-dom";
+import ModalLayout from "./ModalLayout";
 
 const BankTransferLayout = () => {
+  const OverlayModal = () => (
+    <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
+  );
+
   const [transaction, setTransaction] = useState(null);
+  const [overlay, setOverlay] = useState(<OverlayModal />);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { transactionId, bankName } = useParams();
 
   const bankTransaction = async () => {
@@ -87,15 +95,31 @@ const BankTransferLayout = () => {
               <Text as="b" fontSize="lg">
                 Total payment
               </Text>
-              <Text fontSize="lg">Rp {transaction.total}</Text>
+              <Text fontSize="lg">Rp {transaction && transaction.total}</Text>
             </Box>
           </Box>
 
-          <Button colorScheme="green" mt={6} float="right">
+          <Button
+            onClick={() => {
+              setOverlay(<OverlayModal />);
+              onOpen();
+            }}
+            colorScheme="green"
+            mt={6}
+            float="right"
+          >
             Confirm Payment
           </Button>
         </Box>
       </Center>
+      <ModalLayout
+        isOpenModal={isOpen}
+        onCloseModal={onClose}
+        overlay={overlay}
+        bankName={bankName}
+        transactionId={transaction && transaction.transactionId}
+        transactionTotal={transaction && transaction.total}
+      />
     </>
   );
 };

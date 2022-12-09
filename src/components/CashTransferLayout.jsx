@@ -15,12 +15,13 @@ import {
 import { useEffect, useState } from "react";
 
 import { MdOutlineArrowBack } from "react-icons/md";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import backend from "../api/backend";
 
 const CashTransferLayout = () => {
   const [transaction, setTransaction] = useState(null);
   const { transactionId, cashName } = useParams();
+  const navigate = useNavigate();
 
   const cashTransaction = async () => {
     try {
@@ -94,8 +95,13 @@ const CashTransferLayout = () => {
             </Box>
           </Box>
 
-          <Button colorScheme="green" mt={6} float="right">
-            Confirm Payment
+          <Button
+            onClick={() => navigate(`/${transactionId}`)}
+            colorScheme="green"
+            mt={6}
+            float="right"
+          >
+            OK
           </Button>
         </Box>
       </Center>

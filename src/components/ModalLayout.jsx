@@ -19,26 +19,17 @@ import {
 
 import { useState } from "react";
 
-const ModalLayout = () => {
-  const OverlayModal = () => (
-    <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
-  );
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [overlay, setOverlay] = useState(<OverlayModal />);
-
+const ModalLayout = ({
+  isOpenModal,
+  onCloseModal,
+  overlay,
+  transactionTotal,
+  transactionId,
+  bankName,
+}) => {
   return (
     <>
-      <Button
-        onClick={() => {
-          setOverlay(<OverlayModal />);
-          onOpen();
-        }}
-      >
-        Test Modal
-      </Button>
-
-      <Modal isCentered isOpen={isOpen} onClose={onClose} size="xl">
+      <Modal isCentered isOpen={isOpenModal} onClose={onCloseModal} size="xl">
         {overlay}
         <ModalContent p={8}>
           <ModalCloseButton />
@@ -51,26 +42,26 @@ const ModalLayout = () => {
                 <Tbody>
                   <Tr>
                     <Td>Transaction Date</Td>
-                    <Td>1 oct 2022, 10:33 AM</Td>
+                    <Td>{new Date().toDateString()}</Td>
                   </Tr>
                   <Tr>
                     <Td>Transaction Id</Td>
-                    <Td>7389135471639</Td>
+                    <Td>{transactionId}</Td>
                   </Tr>
                   <Tr>
                     <Td>Bank</Td>
-                    <Td>BRI</Td>
+                    <Td>{bankName}</Td>
                   </Tr>
                   <Tr>
                     <Td>Total Payment</Td>
-                    <Td>Rp. 200.000</Td>
+                    <Td>Rp {transactionTotal}</Td>
                   </Tr>
                 </Tbody>
               </Table>
             </TableContainer>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={onClose}>Ok</Button>
+            <Button onClick={onCloseModal}>Ok</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
