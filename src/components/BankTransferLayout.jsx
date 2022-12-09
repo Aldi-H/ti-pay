@@ -41,6 +41,16 @@ const BankTransferLayout = () => {
     }
   };
 
+  const payment = async () => {
+    try {
+      const res = await backend.post(`/transaction/${transactionId}/pay`);
+      setOverlay(<OverlayModal />);
+      onOpen();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     bankTransaction();
     console.log(bankTransaction());
@@ -101,8 +111,7 @@ const BankTransferLayout = () => {
 
           <Button
             onClick={() => {
-              setOverlay(<OverlayModal />);
-              onOpen();
+              payment();
             }}
             colorScheme="green"
             mt={6}

@@ -28,6 +28,7 @@ const CreditTransferLayout = () => {
   const OverlayModal = () => (
     <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
   );
+
   const [transaction, setTransaction] = useState(null);
   const [overlay, setOverlay] = useState(<OverlayModal />);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -38,6 +39,16 @@ const CreditTransferLayout = () => {
       const res = await backend.get(`transaction/${transactionId}/${cardName}`);
       setTransaction(res.data.results);
       console.log(res.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const payment = async () => {
+    try {
+      const res = await backend.post(`/transaction/${transactionId}/pay`);
+      setOverlay(<OverlayModal />);
+      onOpen();
     } catch (error) {
       console.log(error);
     }
@@ -117,8 +128,7 @@ const CreditTransferLayout = () => {
           </Box>
           <Button
             onClick={() => {
-              setOverlay(<OverlayModal />);
-              onOpen();
+              payment();
             }}
             colorScheme="green"
             mt={6}
